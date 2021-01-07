@@ -1,0 +1,195 @@
+<?php include 'header.php';
+?>
+<link rel="stylesheet" href="../plugins/datatables/dataTables.bootstrap.css">
+<link rel="stylesheet" href="../dist/css/AdminLTE.min.css">
+<link rel="stylesheet" href="../plugins/select2/select2.min.css">
+<link rel="stylesheet" href="../dist/css/skins/_all-skins.min.css">
+
+<body class="nav-md">
+  <div class="container body">
+    <div class="main_container">
+      <?php include 'main_sidebar.php'; ?>
+      <?php include 'top_nav.php'; ?>
+      <style>
+        label {
+          color: black;
+        }
+
+        li {
+          color: white;
+        }
+
+        ul {
+          color: white;
+        }
+
+        #buscar {
+          text-align: right;
+        }
+      </style>
+      <div class="right_col" role="main">
+        <div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x-panel">
+            </div>
+          </div>
+        </div>
+        <?php
+        if (isset($_REQUEST['cid'])) {
+          $cid = $_REQUEST['cid'];
+        } else {
+          $cid = $_POST['cid'];
+        }
+        ?>
+        <div class="box-header">
+          <h3 class="box-title"> MODIFICAR USUARIO</h3>
+        </div>
+        <a class="btn btn-danger btn-print" href="usuario.php" style="height:25%; width:15%; font-size: 12px " role="button">Regresar</a>
+        <div class="box-body">
+          <?php
+          $query = mysqli_query($con, "select * from usuario where id= '$cid' ") or die(mysqli_error());
+          $i = 1;
+          while ($row = mysqli_fetch_array($query)) {
+            $cid = $row['id'];
+            $tipo = $row['tipo'];
+          ?>
+            <form class="form-horizontal" method="post" action="usuario_actualizar.php" enctype='multipart/form-data'>
+              <input type="hidden" class="form-control" id="id_usuario" name="id_usuario" value="<?php echo $row['id']; ?>" required>
+              <div class="row">
+                <div class="col-md-3 btn-print">
+                  <div class="form-group">
+                    <label for="date">Nombre</label>
+                  </div>
+                </div>
+                <div class="col-md-4 btn-print">
+                  <div class="form-group">
+                    <input type="text" class="form-control" id="name" name="nombre" value="<?php echo $row['nombre']; ?>" required>
+                  </div>
+                </div>
+                <div class="col-md-4 btn-print">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3 btn-print">
+                  <div class="form-group">
+                    <label for="date">Apellido</label>
+                  </div>
+                  < </div>
+                    <div class="col-md-4 btn-print">
+                      <div class="form-group">
+                        <input type="text" class="form-control" id="apellido" name="apellido" value="<?php echo $row['apellido']; ?>" required>
+                      </div>
+                    </div>
+                    <div class="col-md-4 btn-print">
+                    </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-3 btn-print">
+                    <div class="form-group">
+                      <label for="date">Usuario</label>
+                    </div>
+                  </div>
+                  <div class="col-md-4 btn-print">
+                    <div class="form-group">
+                      <input type="text" class="form-control" id="usuario" name="usuario" value="<?php echo $row['usuario']; ?>" required>
+                    </div>
+                  </div>
+                  <div class="col-md-4 btn-print">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-3 btn-print">
+                    <div class="form-group">
+                      <label for="date">Telefono</label>
+                    </div>
+                  </div>
+                  <div class="col-md-4 btn-print">
+                    <div class="form-group">
+                      <input type="text" class="form-control" id="telefono" name="telefono" value="<?php echo $row['telefono']; ?>">
+                    </div>
+                  </div>
+                  <div class="col-md-4 btn-print">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-3 btn-print">
+                    <div class="form-group">
+                      <label for="date">Tipo usuario</label>
+                    </div>
+                  </div>
+                  <div class="col-md-4 btn-print">
+                    <div class="form-group">
+                      <select class="form-control select2" style="width: 60%;" name="tipo" id="tipo"> <br>
+                        <option value="administrador" <?php if ($tipo == "administrador") {
+                                                        echo "selected";
+                                                      } ?>>administrador</option>
+                        <option value="empleado" <?php if ($tipo == "empleado") {
+                                                    echo "selected";
+                                                  } ?>>empleado</option>
+                        <option value="CLIENTE" <?php if ($tipo == "cliente") {
+                                                  echo "selected";
+                                                } ?>>cliente</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-4 btn-print">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-3 btn-print">
+                    <div class="form-group">
+                      <label for="date">Correo</label>
+                    </div>
+                  </div>
+                  <div class="col-md-4 btn-print">
+                    <div class="form-group">
+                      <input type="text" class="form-control" id="correo" name="correo" value="<?php echo $row['correo']; ?>" required>
+                    </div>
+                  </div>
+                  <div class="col-md-4 btn-print">
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary">GUARDAR</button>
+                <br><br><br>
+                <hr>
+                <div class="modal-footer">
+                </div>
+            </form>
+          <?php } ?>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  <footer>
+    <div class="pull-right">
+      Turn Hair <a href="#"></a>
+    </div>
+    <div class="clearfix"></div>
+  </footer>
+  </div>
+  </div>
+  <?php include 'datatable_script.php'; ?>
+  <script>
+    $(document).ready(function() {
+      $('#example2').dataTable({
+        "language": {
+          "paginate": {
+            "previous": "anterior",
+            "next": "posterior"
+          },
+          "search": "Buscar:",
+        },
+        "info": false,
+        "lengthChange": false,
+        "searching": false,
+        "searching": true,
+      });
+    });
+  </script>
+</body>
+
+</html>
